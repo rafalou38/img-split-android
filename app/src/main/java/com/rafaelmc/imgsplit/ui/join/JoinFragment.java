@@ -1,5 +1,6 @@
 package com.rafaelmc.imgsplit.ui.join;
 
+import android.content.ClipData;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -37,10 +38,12 @@ public class JoinFragment extends Fragment {
     }
 
     private void chooseImages(){
-        Intent intent = new Intent();
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
         intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), 1);
+
+        startActivityForResult(Intent.createChooser(intent, "Select split images"), 1);
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data)  {
@@ -48,13 +51,14 @@ public class JoinFragment extends Fragment {
 
         if (resultCode == -1) {
             if (requestCode == 1) {
+
                 Uri selected = data.getData();
-                if (null != selected) {
-//                    Log.d("Photopicker", getFileName(selected));
-//                    selectedUri = selected;
-//                    binding.imageView.setImageURI(selected);
-//                    binding.slider.setEnabled(true);
-//                    binding.processButton.setEnabled(true);
+                ClipData clipData = data.getClipData();
+                if(clipData != null){
+                    for (int i = 0; i < clipData.getItemCount(); i++) {
+                        joinList.addItem(clipData.getItemAt(i).getUri());
+                    }
+                }else if (selected != null) {
                     joinList.addItem(selected);
                 }
             }
