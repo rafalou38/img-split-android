@@ -31,8 +31,18 @@
         app:srcCompat="@drawable/placeholder_image"
         tools:layout_editor_absoluteY="0dp" />
 
+    <TextView
+        android:id="@+id/fileName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="file"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnDown"
+        app:layout_constraintStart_toEndOf="@+id/image"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnUp"
         style="@style/Widget.Material3.Button.IconButton"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
@@ -41,11 +51,11 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/btnDown"
         style="@style/Widget.Material3.Button.IconButton"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_weight="0"
         app:icon="@drawable/ic_arrow_down"
-        app:layout_constraintEnd_toStartOf="@+id/button" />
+        app:layout_constraintEnd_toStartOf="@+id/btnUp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
